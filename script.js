@@ -1,8 +1,8 @@
 const scheduleData = [
-    { time: "7:00 AM", period: "morning", title: "Morning Flow", instructor: "Ananya Rao", spots: 6, capacity: 8 },
-    { time: "9:30 AM", period: "morning", title: "Gentle Hatha", instructor: "Priya Nair", spots: 2, capacity: 10 },
-    { time: "1:00 PM", period: "afternoon", title: "Restorative Stretch", instructor: "Kabir Sen", spots: 5, capacity: 8 },
-    { time: "6:00 PM", period: "evening", title: "Power Yoga", instructor: "Emma Carter", spots: 1, capacity: 8 },
+    { time: "7:00 AM", period: "morning", title: "Morning Flow", instructor: "Kajal Patel", spots: 6, capacity: 8 },
+    { time: "9:30 AM", period: "morning", title: "Gentle Hatha", instructor: "Priyanka Sharma", spots: 2, capacity: 10 },
+    { time: "1:00 PM", period: "afternoon", title: "Restorative Stretch", instructor: "Kunal Thakur", spots: 5, capacity: 8 },
+    { time: "6:00 PM", period: "evening", title: "Power Yoga", instructor: "Shreya Singh ", spots: 1, capacity: 8 },
     { time: "8:00 PM", period: "evening", title: "Candlelight Yin", instructor: "Ananya Rao", spots: 4, capacity: 6 }
 ];
 

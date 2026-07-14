@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Boutique Yoga Studio dashboard for managing yoga classes and schedules.">
+    <title>Boutique Yoga Studio Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header__brand">
+            <span class="header__logo" aria-hidden="true">◐</span>
+            <h1 class="header__title">Boutique Yoga Studio</h1>
+        </div>
+
+        <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav class="header__nav" id="primaryNav" aria-label="Primary navigation">
+            <a href="#schedule" class="nav__link">Schedule</a>
+            <a href="#members" class="nav__link">Members</a>
+            <a href="#booking" class="nav__link">New Booking</a>
+        </nav>
+
+        <div class="header__utils">
+            <time class="header__clock" id="liveClock" datetime=""></time>
+            <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Switch to dark theme" aria-pressed="false">
+                <span class="theme-toggle__icon" aria-hidden="true">◑</span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <p class="hero__eyebrow" id="heroDate"></p>
+        <h2 class="hero__title" id="heroGreeting">Good morning</h2>
+        <p class="hero__subtitle">Here's what's happening at the studio today.</p>
+    </section>
+
+    <main>
+
+        <section class="stats-bar" aria-label="Today's summary">
+            <div class="stat">
+                <span class="stat__value" id="statClasses">—</span>
+                <span class="stat__label">Classes Today</span>
+            </div>
+            <div class="stat">
+                <span class="stat__value" id="statCheckedIn">—</span>
+                <span class="stat__label">Checked In</span>
+            </div>
+            <div class="stat">
+                <span class="stat__value" id="statPending">—</span>
+                <span class="stat__label">Pending Bookings</span>
+            </div>
+        </section>
+
+
+        <div class="alert-banner" id="renewalAlert" hidden role="status"></div>
+
+        <section id="schedule" class="panel" aria-labelledby="schedule-heading">
+            <div class="panel__head">
+                <h2 id="schedule-heading">Today's Classes</h2>
+                <div class="panel__actions">
+                    <button type="button" class="btn btn--ghost" id="printScheduleBtn">Print</button>
+                    <button type="button" class="btn btn--ghost" id="refreshScheduleBtn" aria-label="Refresh class schedule">Refresh</button>
+                </div>
+            </div>
+
+            <div class="filter-chips" role="group" aria-label="Filter classes by time of day">
+                <button type="button" class="chip is-active" data-filter="all">All</button>
+                <button type="button" class="chip" data-filter="morning">Morning</button>
+                <button type="button" class="chip" data-filter="afternoon">Afternoon</button>
+                <button type="button" class="chip" data-filter="evening">Evening</button>
+            </div>
+
+            <div class="loading-state" id="scheduleLoading" hidden>
+                <span class="spinner" aria-hidden="true"></span>
+                <p>Loading…</p>
+            </div>
+
+            <div class="empty-state" id="scheduleEmpty" hidden>
+                <p>No classes scheduled for this time of day.</p>
+            </div>
+
+            <ul class="schedule-list" id="scheduleList"></ul>
+        </section>
+
+        <section id="members" class="panel" aria-labelledby="members-heading">
+            <div class="panel__head">
+                <h2 id="members-heading">Member Lookup</h2>
+            </div>
+
+            <div class="search-bar">
+                <label for="memberSearchInput" class="visually-hidden">Search members by name</label>
+                <input
+    type="text"
+    id="memberSearchInput"
+    class="search-bar__input"
+    placeholder="Search by name… e.g. Riya, Karan"
+    aria-describedby="memberSearchHelp"
+/>
+                <span id="memberSearchHelp" class="visually-hidden">Type at least two characters to search</span>
+            </div>
+
+            <div class="loading-state" id="membersLoading" hidden>
+                <span class="spinner" aria-hidden="true"></span>
+                <p>Loading…</p>
+            </div>
+
+            <div class="empty-state" id="membersEmpty" hidden>
+                <p>No members found. Try a different name.</p>
+            </div>
+
+            <ul class="member-list" id="memberList"></ul>
+        </section>
+
+        <section id="booking" class="panel" aria-labelledby="booking-heading">
+            <div class="panel__head">
+                <h2 id="booking-heading">New Booking</h2>
+            </div>
+
+            <form novalidate id="bookingForm" class="booking-form">
+                <div class="form-field">
+                    <label for="clientName">Client Name</label>
+                    <input type="text" id="clientName" name="clientName" required aria-describedby="clientNameError" />
+                    <span class="field-error" id="clientNameError" role="alert"></span>
+                </div>
+
+                <div class="form-field">
+                    <label for="classSelect">Class</label>
+                    <select id="classSelect" name="classSelect" required aria-describedby="classSelectError">
+                        <option value="">Select a class</option>
+                        <option value="morning-flow">Morning Flow — 7:00 AM</option>
+                        <option value="power-yoga">Power Yoga — 6:00 PM</option>
+                        <option value="restorative">Restorative — 8:00 PM</option>
+                    </select>
+                    <span class="field-error" id="classSelectError" role="alert"></span>
+                </div>
+
+                <div class="form-field">
+                    <label for="clientPhone">Phone Number</label>
+                    <input type="tel" id="clientPhone" name="clientPhone" required aria-describedby="clientPhoneError" />
+                    <span class="field-error" id="clientPhoneError" role="alert"></span>
+                </div>
+
+                <button type="submit" class="btn btn--primary">Confirm Booking</button>
+            </form>
+
+            <div class="empty-state" id="bookingSuccess" hidden role="status">
+                <p>Booking confirmed. See you on the mat!</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Boutique Yoga Studio · Internal Staff Tool</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
